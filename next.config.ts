@@ -1,7 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.jsdelivr.net',
+      },
+    ],
+    unoptimized: true,
+  },
+  basePath: process.env.NODE_ENV === 'production' ? '/isaac-rabin-portfolio' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/isaac-rabin-portfolio/' : '',
+  trailingSlash: true,
 };
 
 export default nextConfig;

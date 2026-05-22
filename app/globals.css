@@ -1,17 +1,42 @@
 @import "tailwindcss";
 
+/* Root Variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+/* Tailwind Theme */
 @theme inline {
+  /* Base colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-maven: "Maven Pro", sans-serif;
+
+  /* Custom Colors */
+  --color-bg: #0a0c12;
+  --color-bg2: #0f111a;
+  --color-surface: #1a1f2e;
+  --color-accent: #3b82f6;
+  --color-accent2: #8b5cf6;
+  --color-text: #f1f5f9;
+  --color-text2: #cbd5e1;
+  --color-text3: #94a3b8;
+  --color-border: #2a3142;
+
+  /* Animations */
+  --animate-marquee: marquee 50s linear infinite;
+  --animate-marquee2: marquee2 50s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-morph: morph 10s ease-in-out infinite;
+  --animate-pulse-slow: pulse 3s ease-in-out infinite;
 }
 
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +44,126 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================
+   BASE LAYER
+========================= */
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg text-text font-maven overflow-x-hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bg2;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-accent rounded-full;
+  }
+}
+
+/* =========================
+   COMPONENTS
+========================= */
+@layer components {
+  .container-custom {
+    @apply max-w-6xl mx-auto px-6 md:px-8;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-white to-text2 bg-clip-text text-transparent;
+  }
+
+  .gradient-border {
+    @apply border border-border;
+  }
+
+  .glow {
+    @apply relative overflow-hidden;
+  }
+
+  .glow::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-accent/5 via-accent2/5 to-accent/5 opacity-0 transition-opacity duration-500 pointer-events-none;
+  }
+
+  .glow:hover::before {
+    @apply opacity-100;
+  }
+}
+
+/* =========================
+   UTILITIES
+========================= */
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+}
+
+/* =========================
+   KEYFRAMES
+========================= */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee2 {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  }
+
+  50% {
+    border-radius: 65% 35% 45% 55% / 62% 48% 52% 38%;
+  }
+
+  100% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+  }
 }
