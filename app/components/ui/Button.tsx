@@ -19,7 +19,7 @@ export default function Button({
   type = 'button',
   disabled = false
 }: ButtonProps) {
-  const baseStyles = 'px-6 py-3 rounded-full font-semibold transition-all duration-300 inline-block text-center'
+  const baseStyles = 'px-6 py-3 rounded-full font-semibold transition-all duration-300 inline-block text-center cursor-pointer'
   const variants = {
     primary: 'bg-gradient-to-r from-accent to-accent2 text-bg hover:shadow-lg hover:shadow-accent/30 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0',
     outline: 'border border-border2 text-text hover:border-accent hover:text-accent hover:-translate-y-1 bg-transparent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0'

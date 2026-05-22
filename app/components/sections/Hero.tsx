@@ -5,12 +5,13 @@ import profilePic from '@/public/profile.png'
 import Image from 'next/image'
 import { useState } from 'react'
 import { X, Wrench, FolderKanban } from 'lucide-react'
+import { getAssetPath } from '@/app/utils/path'
 
 export default function Hero() {
   const [showModal, setShowModal] = useState(false)
 
   const handleResume = () => {
-    window.open('/Isaac_Rabin_Resume.pdf', '_blank')
+    window.open(getAssetPath('/Isaac_Rabin_Resume.pdf'), '_blank')
   }
 
   return (
@@ -55,7 +56,7 @@ export default function Hero() {
                   </p>
                   <button
                     onClick={() => setShowModal(true)}
-                    className="mt-3 text-accent text-sm font-medium hover:underline hover:text-accent/80 transition-colors"
+                    className="mt-3 cursor-pointer text-accent text-sm font-medium hover:underline hover:text-accent/80 transition-colors"
                   >
                     Read more →
                   </button>
@@ -67,7 +68,7 @@ export default function Hero() {
                 <div className="flex flex-wrap gap-4">
                   <a
                     href="#contact"
-                    className="px-6 py-3 rounded-full border border-accent text-text font-semibold text-sm
+                    className="px-6 py-3 cursor-pointer rounded-full border border-accent text-text font-semibold text-sm
                       hover:bg-accent/10 transition-all duration-300 flex items-center gap-2"
                   >
                     CONTACT ME
@@ -75,7 +76,7 @@ export default function Hero() {
                   </a>
                   <button
                     onClick={handleResume}
-                    className="px-6 py-3 rounded-full bg-accent2 text-white font-semibold text-sm
+                    className="px-6 py-3 cursor-pointer rounded-full bg-accent2 text-white font-semibold text-sm
                       hover:bg-accent2/80 hover:shadow-[0_0_20px_rgba(139,92,246,0.4)]
                       transition-all duration-300 flex items-center gap-2"
                   >
