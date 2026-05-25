@@ -48,11 +48,7 @@ export default function Hero() {
                     About Me
                   </p>
                   <p className="text-text2 leading-relaxed text-sm line-clamp-4">
-                    Software Engineer with 6+ years of experience in system integration, backend development,
-                    and API-driven data exchange across enterprise and digital health platforms. Skilled in
-                    Java (Spring Boot), Angular, and C# (.NET), with hands-on experience designing and
-                    integrating RESTful APIs and building end-to-end workflows across application, data,
-                    and reporting layers.
+                    Software Engineer with 6+ years of experience designing and delivering enterprise-grade applications across backend development, frontend development, and system integration. Proficient in Java (Spring Boot), C# (.NET), Angular, React and Next.js, with strong expertise in RESTful API integration, workflow automation, and building scalable end-to-end solutions across application, data, and reporting layers.
                   </p>
                   <button
                     onClick={() => setShowModal(true)}
@@ -162,20 +158,12 @@ export default function Hero() {
             {/* Header */}
             <h2 className="text-3xl font-extrabold text-text mb-1">Isaac Rabin</h2>
             <p className="text-accent font-semibold text-base mb-1">Senior Full-Stack Engineer</p>
-            <p className="text-text3 text-sm mb-6">(Feb 2023 – Present · Griffin Global Technologies)</p>
+            <p className="text-text3 text-sm mb-6">Java · C# · Angular · React · Next.js · Microservices · API Integration</p>
 
             {/* Overview */}
             <h3 className="text-accent font-bold text-lg mb-3">Overview</h3>
             <p className="text-text2 text-sm leading-relaxed mb-6">
-              Software Engineer with 6+ years of experience in system integration, backend development,
-              and API-driven data exchange across enterprise and digital health platforms. Skilled in
-              Java (Spring Boot), Angular, and C# (.NET), with hands-on experience designing and
-              integrating RESTful APIs and building end-to-end workflows across application, data,
-              and reporting layers. Familiar with FHIR-based interoperability standards and experienced
-              configuring and integrating health information systems including DHIS2-connected reporting
-              pipelines. Proven ability to troubleshoot complex multi-layer issues, support iterative UAT
-              releases, and collaborate effectively in agile delivery teams operating in fast-paced,
-              multi-country implementation contexts.
+              Software Engineer with 6+ years of experience delivering enterprise-grade solutions across system integration, backend and frontend development, and API-driven architectures. Proficient in Java (Spring Boot), Angular, React, Next.js and C# (.NET), with strong expertise in designing RESTful APIs, integrating distributed systems, and developing scalable end-to-end workflows across application, data, and reporting layers. Experienced in integrating third-party platforms, streamlining interoperability workflows, and supporting complex reporting and data exchange pipelines. Demonstrated ability to diagnose and resolve cross-system issues, support iterative UAT and deployment cycles, and work effectively within agile, cross-functional teams across fast-paced, multi-country delivery environments.
             </p>
 
             {/* Technologies */}
@@ -200,7 +188,7 @@ export default function Hero() {
             {/* Key Projects */}
             <h3 className="text-text font-bold text-lg mb-3 flex items-center gap-2">
               <FolderKanban size={18} className="text-accent" />
-              Key Projects
+              Key Project Achievements
             </h3>
             <div className="flex flex-col gap-3">
               {[
