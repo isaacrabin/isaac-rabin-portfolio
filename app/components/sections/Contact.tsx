@@ -1,53 +1,59 @@
 'use client'
 
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
+
 import Button from '@/app/components/ui/Button'
 import SectionHeader from '@/app/components/ui/SectionHeader'
 import Reveal from '@/app/components/animations/Reveal'
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  })
+
+  const [status, setStatus] = useState<
+    'idle' | 'sending' | 'success' | 'error'
+  >('idle')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
     setStatus('sending')
 
     try {
-      const form = new FormData()
-
-      form.append('name', formData.name)
-      form.append('email', formData.email)
-      form.append('message', formData.message)
-      form.append('_subject', `Portfolio Contact from ${formData.name}`)
-      form.append('_captcha', 'false')
-
-      const response = await fetch(
-        'https://formsubmit.co/ajax/isaacmrongo@gmail.com',
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
-          method: 'POST',
-          body: form,
-        }
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       )
 
-      if (response.ok) {
-        setStatus('success')
-        setFormData({
-          name: '',
-          email: '',
-          message: '',
-        })
+      setStatus('success')
 
-        setTimeout(() => setStatus('idle'), 3000)
-      } else {
-        setStatus('error')
-        setTimeout(() => setStatus('idle'), 3000)
-      }
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      })
+
+      setTimeout(() => {
+        setStatus('idle')
+      }, 3000)
     } catch (error) {
       console.error(error)
 
       setStatus('error')
-      setTimeout(() => setStatus('idle'), 3000)
+
+      setTimeout(() => {
+        setStatus('idle')
+      }, 3000)
     }
   }
 
@@ -59,78 +65,114 @@ export default function Contact() {
           title="Let's Build Something."
           subtitle="Open to senior full-stack roles, consulting engagements, and exciting collaborations."
         />
-        
+
         <div className="grid md:grid-cols-2 gap-12">
           <Reveal direction="left">
             <div>
-              <h3 className="text-2xl font-bold mb-4">Let's Connect</h3>
+              <h3 className="text-2xl font-bold mb-4">
+                Let's Connect
+              </h3>
+
               <p className="text-text2 mb-8">
-                Based in Nairobi, available for remote work worldwide. I'm always interested in hearing about new opportunities and challenging projects.
+                Based in Nairobi, available for remote work
+                worldwide.
               </p>
-              
+
               <div className="space-y-4">
-                <a href="tel:0729176560" className="flex items-center gap-3 text-text2 hover:text-accent transition-colors duration-200">
-                  <span className="w-10 h-10 rounded-lg border border-border flex items-center justify-center">📞</span>
+                <a
+                  href="tel:0729176560"
+                  className="flex items-center gap-3 text-text2 hover:text-accent transition-colors duration-200"
+                >
+                  <span className="w-10 h-10 rounded-lg border border-border flex items-center justify-center">
+                    📞
+                  </span>
+
                   <span>0729-176-560</span>
                 </a>
-                <a href="mailto:isaacmrongo@gmail.com" className="flex items-center gap-3 text-text2 hover:text-accent transition-colors duration-200">
-                  <span className="w-10 h-10 rounded-lg border border-border flex items-center justify-center">✉️</span>
+
+                <a
+                  href="mailto:isaacmrongo@gmail.com"
+                  className="flex items-center gap-3 text-text2 hover:text-accent transition-colors duration-200"
+                >
+                  <span className="w-10 h-10 rounded-lg border border-border flex items-center justify-center">
+                    ✉️
+                  </span>
+
                   <span>isaacmrongo@gmail.com</span>
                 </a>
-                <a href="https://linkedin.com/in/isaac-rabin-588131400" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-text2 hover:text-accent transition-colors duration-200">
-                  <span className="w-10 h-10 rounded-lg border border-border flex items-center justify-center">💼</span>
-                  <span>linkedin.com/in/isaac-rabin</span>
-                </a>
-                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-text2 hover:text-accent transition-colors duration-200">
-                  <span className="w-10 h-10 rounded-lg border border-border flex items-center justify-center">🐙</span>
-                  <span>github.com/yourusername</span>
-                </a>
-                <div className="flex items-center gap-3 text-text2">
-                  <span className="w-10 h-10 rounded-lg border border-border flex items-center justify-center">📍</span>
-                  <span>Nairobi, Kenya</span>
-                </div>
               </div>
             </div>
           </Reveal>
-          
+
           <Reveal direction="right">
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4"
+            >
               <input
                 type="text"
                 placeholder="Your name"
                 required
-                className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text placeholder-text3 focus:outline-none focus:border-accent transition-colors"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 disabled={status === 'sending'}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    name: e.target.value,
+                  })
+                }
+                className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text placeholder-text3 focus:outline-none focus:border-accent transition-colors"
               />
+
               <input
                 type="email"
                 placeholder="Your email"
                 required
-                className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text placeholder-text3 focus:outline-none focus:border-accent transition-colors"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 disabled={status === 'sending'}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    email: e.target.value,
+                  })
+                }
+                className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text placeholder-text3 focus:outline-none focus:border-accent transition-colors"
               />
+
               <textarea
                 rows={5}
                 placeholder="Tell me about the role or project..."
                 required
-                className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text placeholder-text3 focus:outline-none focus:border-accent transition-colors resize-none"
                 value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 disabled={status === 'sending'}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    message: e.target.value,
+                  })
+                }
+                className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-text placeholder-text3 focus:outline-none focus:border-accent transition-colors resize-none"
               />
-              <Button type="submit" disabled={status === 'sending'}>
-                {status === 'sending' ? 'Sending...' : 'Send Message'}
+
+              <Button
+                type="submit"
+                disabled={status === 'sending'}
+              >
+                {status === 'sending'
+                  ? 'Sending...'
+                  : 'Send Message'}
               </Button>
-              
+
               {status === 'success' && (
-                <p className="text-green-500 text-sm">Message sent successfully!</p>
+                <p className="text-sm text-green-500">
+                  Message sent successfully!
+                </p>
               )}
+
               {status === 'error' && (
-                <p className="text-red-500 text-sm">Failed to send. Please email me directly.</p>
+                <p className="text-sm text-red-500">
+                  Failed to send message.
+                </p>
               )}
             </form>
           </Reveal>
