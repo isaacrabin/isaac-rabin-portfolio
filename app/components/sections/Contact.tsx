@@ -12,34 +12,40 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('sending')
-    
-    // Using FormSubmit.co or similar free service for static sites
-    // You can replace with your preferred service
+
     try {
-      const response = await fetch('https://formsubmit.co/ajax/isaacmrongo@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: `Portfolio Contact from ${formData.name}`,
-          _captcha: 'false'
-        })
-      })
-      
+      const form = new FormData()
+
+      form.append('name', formData.name)
+      form.append('email', formData.email)
+      form.append('message', formData.message)
+      form.append('_subject', `Portfolio Contact from ${formData.name}`)
+      form.append('_captcha', 'false')
+
+      const response = await fetch(
+        'https://formsubmit.co/ajax/isaacmrongo@gmail.com',
+        {
+          method: 'POST',
+          body: form,
+        }
+      )
+
       if (response.ok) {
         setStatus('success')
-        setFormData({ name: '', email: '', message: '' })
+        setFormData({
+          name: '',
+          email: '',
+          message: '',
+        })
+
         setTimeout(() => setStatus('idle'), 3000)
       } else {
         setStatus('error')
         setTimeout(() => setStatus('idle'), 3000)
       }
     } catch (error) {
+      console.error(error)
+
       setStatus('error')
       setTimeout(() => setStatus('idle'), 3000)
     }
